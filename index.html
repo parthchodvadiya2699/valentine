@@ -122,8 +122,8 @@
 <div class="hearts"></div>
 
 <div class="card">
-    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDd3NXlyMDM0dGgxdm02cjM3czM1NnozcDFiaHdoOWNtZ2s3ajhwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CKD3WF1bowAFhyiJzk/giphy.gif" alt="Us together" class="card-image">
-    <h1>Will you be my Valentine? 💘</h1>
+    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDd3NXlyMDM0dGgxdm02cjM3czM1NnozcDFiaHdoOWNtZ2s3ajhwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CKD3WF1bowAFhyiJzk/giphy.gif" alt="Us together" class="card-image" id="introImage">
+    <h1 id="mainQuestion">Will you be my Valentine? 💘</h1>
     <div class="buttons">
         <button id="yesBtn">Yes 💖</button>
         <button id="noBtn">No 🙈</button>
@@ -178,6 +178,9 @@ yesBtn.addEventListener("click", () => {
     result.style.display = "block";
     yesBtn.style.display = "none";
     noBtn.style.display = "none";
+    // Hide the question and intro GIF
+    document.getElementById("mainQuestion").style.display = "none";
+    document.getElementById("introImage").style.display = "none";
     startHearts();
     launchConfetti();
     startFireworks();
