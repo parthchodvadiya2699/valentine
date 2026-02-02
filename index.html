@@ -144,6 +144,8 @@ const result = document.getElementById("result");
 
 // Make sure button can move freely
 noBtn.style.position = "fixed";
+noBtn.style.left = (window.innerWidth / 2 + 50) + "px"; // offset right
+noBtn.style.top = (window.innerHeight / 2) + "px";       // center vertically
 
 document.addEventListener("mousemove", (e) => {
     const rect = noBtn.getBoundingClientRect();
