@@ -180,6 +180,7 @@ yesBtn.addEventListener("click", () => {
     noBtn.style.display = "none";
     startHearts();
     launchConfetti();
+    startFireworks();
 });
 
 // Floating hearts
@@ -265,12 +266,18 @@ function updateFireworks() {
     requestAnimationFrame(updateFireworks);
 }
 
-updateFireworks();
+let fireworksStarted = false;
 
-// Random fireworks
-setInterval(() => {
-    createFirework(Math.random() * canvas.width, Math.random() * canvas.height / 2);
-}, 800);
+function startFireworks() {
+    if (fireworksStarted) return;
+    fireworksStarted = true;
+
+    updateFireworks();
+
+    setInterval(() => {
+        createFirework(Math.random() * canvas.width, Math.random() * canvas.height / 2);
+    }, 800);
+}
 </script>
 
 </body>
