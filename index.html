@@ -118,22 +118,32 @@ const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const result = document.getElementById("result");
 
-// Move "No" button away from cursor
+// Make sure button can move freely
+noBtn.style.position = "fixed";
+
 document.addEventListener("mousemove", (e) => {
     const rect = noBtn.getBoundingClientRect();
-    const distance = Math.hypot(e.clientX - (rect.left + rect.width/2),
-                                e.clientY - (rect.top + rect.height/2));
 
-    if (distance < 100) {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 50);
-        noBtn.style.left = x + "px";
-        noBtn.style.top = y + "px";
+    const btnCenterX = rect.left + rect.width / 2;
+    const btnCenterY = rect.top + rect.height / 2;
+
+    const distance = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+
+    // If cursor gets close, move button somewhere else on screen
+    if (distance < 120) {
+        const maxX = window.innerWidth - rect.width - 20;
+        const maxY = window.innerHeight - rect.height - 20;
+
+        const newX = Math.random() * maxX;
+        const newY = Math.random() * maxY;
+
+        noBtn.style.left = newX + "px";
+        noBtn.style.top = newY + "px";
         noBtn.style.transform = "none";
     }
 });
 
-// When YES is clicked
+// YES button click
 yesBtn.addEventListener("click", () => {
     result.style.display = "block";
     yesBtn.style.display = "none";
@@ -141,7 +151,7 @@ yesBtn.addEventListener("click", () => {
     startHearts();
 });
 
-// Floating hearts animation
+// Floating hearts
 function startHearts() {
     const heartsContainer = document.querySelector(".hearts");
     setInterval(() => {
@@ -155,6 +165,7 @@ function startHearts() {
     }, 300);
 }
 </script>
+
 
 </body>
 </html>
