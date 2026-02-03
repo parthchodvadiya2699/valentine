@@ -247,12 +247,7 @@
             Thank you for being you, for your smile, your kindness, and the way you make even normal days feel special.  
             I’m really lucky to have you ❤️
         </div>
-</div>
-
-<div id="secretMessage" style="display:none; margin-top:15px; font-size:16px; color:#444;">
-    From the moment you came into my life, everything became brighter.  
-    Thank you for being you, for your smile, your kindness, and the way you make even normal days feel special.  
-    I’m really lucky to have you ❤️
+    </div>
 </div>
 
     <!-- MEMORY SECTION -->
@@ -360,14 +355,6 @@ function startHearts() {
     }, 300);
 }
 
-document.addEventListener("click", function(e) {
-    if (e.target && e.target.id === "secretBtn") {
-        const msg = document.getElementById("secretMessage");
-        msg.style.display = "block";
-        msg.style.animation = "fadeIn 1s ease forwards";
-        e.target.style.display = "none"; // hide button after click
-    }
-});
 </script>
 
 <canvas id="fireworks"></canvas>
