@@ -26,13 +26,6 @@
         box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         max-width: 400px;
         position: relative;
-        z-index: 1;
-    }
-
-    .card-image {
-        width: 100%;
-        border-radius: 15px;
-        margin-bottom: 15px;
     }
 
     h1 {
@@ -75,6 +68,7 @@
         text-align: center;
     }
     
+    .secret-btn,
     .secret-message {
         display: block;
         margin-left: auto;
@@ -121,6 +115,10 @@
         pointer-events: none;
         z-index: 0;
     }
+    .card {
+        position: relative;
+        z-index: 1;
+    }
 
     #yesBtn:hover {
         transform: translateX(-120%) scale(1.1);
@@ -138,32 +136,29 @@
     }
 
     .secret-btn {
-        background: linear-gradient(45deg, #ff4d6d, #ff85a1);
-        border: none;
+        margin-top: 15px;
         padding: 12px 22px;
         border-radius: 25px;
+        border: none;
+        background: linear-gradient(45deg, #ff4d6d, #ff758f);
         color: white;
         font-size: 16px;
         cursor: pointer;
-        box-shadow: 0 6px 15px rgba(255, 77, 109, 0.4);
-        transition: transform 0.2s ease;
+        box-shadow: 0 8px 18px rgba(255, 77, 109, 0.4);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .secret-btn:hover {
         transform: scale(1.08);
+        box-shadow: 0 12px 22px rgba(255, 77, 109, 0.6);
     }
 
     .secret-message {
         display: none;
         margin-top: 15px;
         font-size: 16px;
-        color: #ff4d6d;
+        color: #444;
         animation: fadeIn 1s ease forwards;
-    }
-
-    .message-section {
-        margin-top: 50px; /* pushes it lower under the image */
-        text-align: center;
     }
 </style>
 </head>
@@ -172,41 +167,30 @@
 <div class="hearts"></div>
 
 <div class="card">
-
-    <!-- QUESTION SECTION -->
-    <div id="questionSection">
-        <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDd3NXlyMDM0dGgxdm02cjM3czM1NnozcDFiaHdoOWNtZ2s3ajhwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CKD3WF1bowAFhyiJzk/giphy.gif" class="card-image">
-        <h1>Will you be my Valentine? 💘</h1>
-
-        <div class="buttons">
-            <button id="yesBtn">Yes 💖</button>
-            <button id="noBtn">No 🙈</button>
-        </div>
+    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDd3NXlyMDM0dGgxdm02cjM3czM1NnozcDFiaHdoOWNtZ2s3ajhwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CKD3WF1bowAFhyiJzk/giphy.gif" alt="Us together" class="card-image" id="introImage">
+    <h1 id="mainQuestion">Will you be my Valentine? 💘</h1>
+    <div class="buttons">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 🙈</button>
     </div>
 
-    <!-- RESULT SECTION -->
     <div id="result">
-        <h2>She said YES!!! 💍💖</h2>
-        <p>Best day ever 🎉</p>
+        <h2>She said YES!!! 💍💖 Best day ever!</h2>
+        <h2>YAY!!! 🎉💞</h2>
+        <p>Congratulations, you're stuck with me now 😘</p>
+
         <img src="IMG_0825.JPG" alt="Us together">
-    </div>
 
-    <!-- SEPARATE MESSAGE SECTION -->
-    <div class="message-section">
-        <button class="secret-btn" onclick="openLetter()">💌 A Message From Me</button>
+        <!-- Message Button at BOTTOM of image -->
+        <button id="secretBtn" class="secret-btn">💌 Message from me</button>
 
-        <div class="letter" id="loveLetter">
-            <div class="letter-content">
-                <h3>My Love ❤️</h3>
-                <p>You make my world brighter every single day...</p>
-                <p>I’m so lucky to have you 💖</p>
-                <p class="signature">Forever Yours 💞</p>
-            </div>
+        <!-- Hidden Message -->
+        <div id="secretMessage" class="secret-message">
+            From the moment you came into my life, everything became brighter.  
+            Thank you for being you, for your smile, your kindness, and the way you make even normal days feel special.  
+            I’m really lucky to have you ❤️
         </div>
-    </div>
-
 </div>
-
 
 <div id="secretMessage" style="display:none; margin-top:15px; font-size:16px; color:#444;">
     From the moment you came into my life, everything became brighter.  
@@ -262,14 +246,12 @@ document.addEventListener("mousemove", (e) => {
 
 // YES button click
 yesBtn.addEventListener("click", () => {
-    //result.style.display = "block";
-    //yesBtn.style.display = "none";
-    //noBtn.style.display = "none";
+    result.style.display = "block";
+    yesBtn.style.display = "none";
+    noBtn.style.display = "none";
     // Hide the question and intro GIF
-    //document.getElementById("mainQuestion").style.display = "none";
-    //document.getElementById("introImage").style.display = "none";
-    document.getElementById("questionSection").style.display = "none";
-    document.getElementById("result").style.display = "block";
+    document.getElementById("mainQuestion").style.display = "none";
+    document.getElementById("introImage").style.display = "none";
     startHearts();
     launchConfetti();
     startFireworks();
@@ -378,10 +360,6 @@ function startFireworks() {
     setInterval(() => {
         createFirework(Math.random() * canvas.width, Math.random() * canvas.height / 2);
     }, 800);
-}
-
-function showSecret() {
-    document.getElementById("secretMessage").style.display = "block";
 }
 </script>
 
