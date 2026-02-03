@@ -115,6 +115,11 @@
         from { transform: translateY(100vh) scale(1); opacity: 1; }
         to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
     }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
@@ -134,6 +139,15 @@
         <h2>YAY!!! 🎉💞</h2>
         <p>Congratulations, you're stuck with me now 😘</p>
         <img src="IMG_0825.JPG" alt="Us together">
+        <button id="secretBtn" style="margin-top:15px; padding:10px 20px; border-radius:20px; border:none; background:#ff4d6d; color:white; cursor:pointer;">
+        💌 A message from me
+        </button>
+
+<div id="secretMessage" style="display:none; margin-top:15px; font-size:16px; color:#444;">
+    From the moment you came into my life, everything became brighter.  
+    Thank you for being you, for your smile, your kindness, and the way you make even normal days feel special.  
+    I’m really lucky to have you ❤️
+</div>
     </div>
 </div>
 
@@ -199,6 +213,15 @@ function startHearts() {
         setTimeout(() => heart.remove(), 5000);
     }, 300);
 }
+
+document.addEventListener("click", function(e) {
+    if (e.target && e.target.id === "secretBtn") {
+        const msg = document.getElementById("secretMessage");
+        msg.style.display = "block";
+        msg.style.animation = "fadeIn 1s ease forwards";
+        e.target.style.display = "none"; // hide button after click
+    }
+});
 </script>
 
 <canvas id="fireworks"></canvas>
