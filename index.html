@@ -160,6 +160,62 @@
         color: #444;
         animation: fadeIn 1s ease forwards;
     }
+
+    .memory-section {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.memory-title {
+    color: #ff4d6d;
+    margin-bottom: 5px;
+}
+
+.memory-sub {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.memory-card {
+    background: #fff0f3;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memory-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.memory-card h3 {
+    margin: 0;
+    color: #ff4d6d;
+}
+
+.memory-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease, opacity 0.6s ease;
+    opacity: 0;
+}
+
+.memory-card.active .memory-content {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.memory-content img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -197,6 +253,37 @@
     Thank you for being you, for your smile, your kindness, and the way you make even normal days feel special.  
     I’m really lucky to have you ❤️
 </div>
+
+    <!-- MEMORY SECTION -->
+<div class="memory-section">
+    <h2 class="memory-title">✨ Our Special Memories ✨</h2>
+    <p class="memory-sub">Click each card to reveal the moment 💖</p>
+
+    <div class="memory-card" onclick="toggleMemory(this)">
+        <h3>📸 Our First Picture</h3>
+        <div class="memory-content">
+            <img src="memory1.jpg" alt="Memory 1">
+            <p>This was the day everything started feeling magical. I still remember how nervous and excited I was ❤️</p>
+        </div>
+    </div>
+
+    <div class="memory-card" onclick="toggleMemory(this)">
+        <h3>🌅 Our Favorite Day Out</h3>
+        <div class="memory-content">
+            <img src="memory2.jpg" alt="Memory 2">
+            <p>We laughed nonstop that day. No stress, just us being us. One of my happiest memories 💕</p>
+        </div>
+    </div>
+
+    <div class="memory-card" onclick="toggleMemory(this)">
+        <h3>💑 A Moment I’ll Never Forget</h3>
+        <div class="memory-content">
+            <img src="memory3.jpg" alt="Memory 3">
+            <p>This moment meant more to me than I can explain. It’s when I realized how much you truly mean to me 💖</p>
+        </div>
+    </div>
+</div>
+
     </div>
 </div>
 
@@ -361,6 +448,11 @@ function startFireworks() {
         createFirework(Math.random() * canvas.width, Math.random() * canvas.height / 2);
     }, 800);
 }
+
+function toggleMemory(card) {
+    card.classList.toggle("active");
+}
+
 </script>
 
 </body>
