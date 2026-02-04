@@ -440,6 +440,12 @@ function toggleMemory(card) {
     card.classList.toggle("active");
 }
 
+let yesScale = 1;
+
+setInterval(() => {
+    yesScale += 0.08; // how much it grows each time
+    yesBtn.style.transform = `translateX(-120%) scale(${yesScale})`;
+}, 3000); // every 3 seconds
 </script>
 
     <!-- MEMORY SECTION (Hidden until YES) -->
