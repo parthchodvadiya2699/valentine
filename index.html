@@ -324,9 +324,13 @@ document.addEventListener("mousemove", (e) => {
 
 // YES button click
 function triggerYes() {
+        // STOP button growth and spawning
+    clearInterval(growInterval);
+    clearInterval(spawnInterval);
+
     result.style.display = "block";
 
-    // Hide ALL yes buttons
+    // Remove ALL yes buttons (including original)
     document.querySelectorAll(".yes-btn").forEach(btn => btn.remove());
 
     noBtn.style.display = "none";
@@ -447,10 +451,10 @@ function toggleMemory(card) {
 
 let yesScale = 1;
 
-setInterval(() => {
-    yesScale += 0.1; // how much it grows each time
+let growInterval = setInterval(() => {
+    yesScale += 0.1;
     yesBtn.style.transform = `translateX(-120%) scale(${yesScale})`;
-}, 1000); // every 3 seconds
+}, 1000);s
 
 
 function createExtraYesButton() {
@@ -471,7 +475,7 @@ function createExtraYesButton() {
 }
 
 // Spawn a new YES button every 3 seconds
-setInterval(createExtraYesButton, 3000);
+    let spawnInterval = setInterval(createExtraYesButton, 3000);
 </script>
 
     <!-- MEMORY SECTION (Hidden until YES) -->
