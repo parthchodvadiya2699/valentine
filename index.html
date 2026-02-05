@@ -328,8 +328,7 @@ document.addEventListener("mousemove", (e) => {
 function triggerYes() {
     if (gameOver) return; // prevents double trigger
     gameOver = true;
-
-    clearInterval(growInterval);
+    
     clearInterval(spawnInterval);
 
     // Remove ALL floating yes buttons
@@ -455,14 +454,6 @@ function startFireworks() {
 function toggleMemory(card) {
     card.classList.toggle("active");
 }
-
-let yesScale = 1;
-
-let growInterval = setInterval(() => {
-    yesScale += 0.05;
-    yesBtn.style.scale = yesScale;   // modern CSS scale (doesn't break position)
-}, 1000);
-
 
 function createExtraYesButton() {
     if (gameOver) return; // 🚫 stop creating after YES
