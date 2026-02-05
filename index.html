@@ -228,25 +228,23 @@
     gap: 20px;
     margin-top: 25px;
 }
-
-    .video-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 ratio */
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.yes-btn {
+    background-color: #ff4d6d;
+    color: white;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 30px;
     border: none;
+    cursor: pointer;
+    position: fixed;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 5;
 }
 
+    .yes-btn:hover {
+    box-shadow: 0 0 15px rgba(255,77,109,0.6);
+    transform: scale(1.1);
+}
 </style>
 </head>
 <body>
@@ -257,7 +255,7 @@
     <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDd3NXlyMDM0dGgxdm02cjM3czM1NnozcDFiaHdoOWNtZ2s3ajhwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CKD3WF1bowAFhyiJzk/giphy.gif" alt="Us together" class="card-image" id="introImage">
     <h1 id="mainQuestion">Hey Scarllett, will you be my Valentine? 💘</h1>
     <div class="buttons">
-        <button id="yesBtn">Yes 💖</button>
+        <button id="yesBtn" class="yes-btn">Yes 💖</button>
         <button id="noBtn">No 🙈</button>
     </div>
 
@@ -325,19 +323,26 @@ document.addEventListener("mousemove", (e) => {
 });
 
 // YES button click
-yesBtn.addEventListener("click", () => {
+function triggerYes() {
     result.style.display = "block";
-    yesBtn.style.display = "none";
+
+    // Hide ALL yes buttons
+    document.querySelectorAll(".yes-btn").forEach(btn => btn.remove());
+
     noBtn.style.display = "none";
-    // Hide the question and intro GIF
     document.getElementById("mainQuestion").style.display = "none";
     document.getElementById("introImage").style.display = "none";
     document.getElementById("memorySection").style.display = "block";
+
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+
     startHearts();
     launchConfetti();
     startFireworks();
-});
+}
+
+// Original button uses same function
+yesBtn.addEventListener("click", triggerYes);
 
 // Floating hearts
 function startHearts() {
@@ -446,6 +451,27 @@ setInterval(() => {
     yesScale += 0.1; // how much it grows each time
     yesBtn.style.transform = `translateX(-120%) scale(${yesScale})`;
 }, 1000); // every 3 seconds
+
+
+function createExtraYesButton() {
+    const btn = document.createElement("button");
+    btn.innerText = "Yes 💖";
+    btn.classList.add("yes-btn");
+
+    // Random position
+    const maxX = window.innerWidth - 120;
+    const maxY = window.innerHeight - 60;
+    btn.style.left = Math.random() * maxX + "px";
+    btn.style.top = Math.random() * maxY + "px";
+
+    // All YES buttons trigger same result
+    btn.addEventListener("click", triggerYes);
+
+    document.body.appendChild(btn);
+}
+
+// Spawn a new YES button every 3 seconds
+setInterval(createExtraYesButton, 3000);
 </script>
 
     <!-- MEMORY SECTION (Hidden until YES) -->
