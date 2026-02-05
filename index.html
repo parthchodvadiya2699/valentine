@@ -236,7 +236,6 @@
     border-radius: 30px;
     border: none;
     cursor: pointer;
-    position: fixed;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     z-index: 5;
 }
@@ -244,6 +243,24 @@
     .yes-btn:hover {
     box-shadow: 0 0 15px rgba(255,77,109,0.6);
     transform: scale(1.1);
+}
+
+    .floating-yes {
+    position: fixed;
+    background-color: #ff4d6d;
+    color: white;
+    padding: 10px 18px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    z-index: 6;
+    animation: popIn 0.25s ease;
+}
+
+@keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 </style>
 </head>
@@ -332,7 +349,7 @@ function triggerYes() {
     clearInterval(spawnInterval);
 
     // Remove ALL floating yes buttons
-    document.querySelectorAll(".yes-btn:not(#yesBtn)").forEach(btn => btn.remove());
+    document.querySelectorAll(".floating-yes").forEach(btn => btn.remove());
 
     // Hide original buttons
     yesBtn.style.display = "none";
@@ -456,19 +473,19 @@ function toggleMemory(card) {
 }
 
 function createExtraYesButton() {
-    if (gameOver) return; // 🚫 stop creating after YES
+    if (gameOver) return;
 
     const btn = document.createElement("button");
     btn.innerText = "Yes 💖";
-    btn.classList.add("yes-btn");
+    btn.classList.add("floating-yes");
 
     const maxX = window.innerWidth - 120;
     const maxY = window.innerHeight - 60;
+
     btn.style.left = Math.random() * maxX + "px";
     btn.style.top = Math.random() * maxY + "px";
 
     btn.addEventListener("click", triggerYes);
-
     document.body.appendChild(btn);
 }
 
