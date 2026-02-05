@@ -262,10 +262,42 @@
     from { transform: scale(0); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+
+    #introScreen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    animation: fadeOutIntro 1s ease 2.2s forwards;
+}
+
+.intro-box {
+    animation: popIntro 0.6s ease;
+}
+
+@keyframes popIntro {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeOutIntro {
+    to { opacity: 0; visibility: hidden; }
+}
 </style>
 </head>
 <body>
-
+<div id="introScreen">
+    <div class="intro-box">
+        <h1>😏 I told you not to open this…</h1>
+        <p>But you still did… now you’re in trouble 💘</p>
+    </div>
+</div>
 <div class="hearts"></div>
 
 <div class="card">
@@ -385,6 +417,11 @@ function startHearts() {
     }, 300);
 }
 
+    // Remove intro screen after 3 seconds
+setTimeout(() => {
+    const intro = document.getElementById("introScreen");
+    if (intro) intro.remove();
+}, 3000);
 </script>
 
 <canvas id="fireworks"></canvas>
