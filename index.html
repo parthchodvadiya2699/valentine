@@ -286,6 +286,8 @@ const result = document.getElementById("result");
 const secretBtn = document.getElementById("secretBtn");
 const secretMessage = document.getElementById("secretMessage");
 
+let gameOver = false;
+
 secretBtn.addEventListener("click", () => {
     secretMessage.style.display = "block";
     secretBtn.style.display = "none"; // hide button after click
@@ -324,17 +326,21 @@ document.addEventListener("mousemove", (e) => {
 
 // YES button click
 function triggerYes() {
-        // STOP button growth and spawning
+    if (gameOver) return; // prevents double trigger
+    gameOver = true;
+
     clearInterval(growInterval);
     clearInterval(spawnInterval);
 
-    result.style.display = "block";
-
-    // Remove ALL yes buttons (including original)
+    // Remove ALL floating yes buttons
     document.querySelectorAll(".yes-btn:not(#yesBtn)").forEach(btn => btn.remove());
 
-
+    // Hide original buttons
+    yesBtn.style.display = "none";
     noBtn.style.display = "none";
+
+    // Show result + memories
+    result.style.display = "block";
     document.getElementById("mainQuestion").style.display = "none";
     document.getElementById("introImage").style.display = "none";
     document.getElementById("memorySection").style.display = "block";
@@ -459,17 +465,17 @@ let growInterval = setInterval(() => {
 
 
 function createExtraYesButton() {
+    if (gameOver) return; // 🚫 stop creating after YES
+
     const btn = document.createElement("button");
     btn.innerText = "Yes 💖";
     btn.classList.add("yes-btn");
 
-    // Random position
     const maxX = window.innerWidth - 120;
     const maxY = window.innerHeight - 60;
     btn.style.left = Math.random() * maxX + "px";
     btn.style.top = Math.random() * maxY + "px";
 
-    // All YES buttons trigger same result
     btn.addEventListener("click", triggerYes);
 
     document.body.appendChild(btn);
