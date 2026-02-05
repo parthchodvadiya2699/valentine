@@ -331,7 +331,8 @@ function triggerYes() {
     result.style.display = "block";
 
     // Remove ALL yes buttons (including original)
-    document.querySelectorAll(".yes-btn").forEach(btn => btn.remove());
+    document.querySelectorAll(".yes-btn:not(#yesBtn)").forEach(btn => btn.remove());
+
 
     noBtn.style.display = "none";
     document.getElementById("mainQuestion").style.display = "none";
@@ -452,9 +453,9 @@ function toggleMemory(card) {
 let yesScale = 1;
 
 let growInterval = setInterval(() => {
-    yesScale += 0.1;
-    yesBtn.style.transform = `translateX(-120%) scale(${yesScale})`;
-}, 1000);s
+    yesScale += 0.05;
+    yesBtn.style.scale = yesScale;   // modern CSS scale (doesn't break position)
+}, 1000);
 
 
 function createExtraYesButton() {
